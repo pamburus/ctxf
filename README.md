@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/pamburus/ctxf?status.svg)](https://godoc.org/github.com/pamburus/ctxf)
 [![Build Status](https://travis-ci.org/pamburus/ctxf.svg?branch=master)](https://travis-ci.org/pamburus/ctxf)
 [![Go Report Status](https://goreportcard.com/badge/github.com/pamburus/ctxf)](https://goreportcard.com/report/github.com/pamburus/ctxf)
-[![Coverage Status](https://coveralls.io/repos/github/pamburus/ctxf/badge.svg?branch=master&service=github)](https://coveralls.io/github/pamburus/ctxf?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/pamburus/ctxf/badge.svg?branch=master)](https://coveralls.io/github/pamburus/ctxf?branch=master)
 
 This package provides means for dealing with fields containing of string and valf.Value, which are typified values with snapshotting capabilities uniformly and a way to get its type and value back using visitor pattern.
 
