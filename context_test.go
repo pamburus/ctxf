@@ -128,6 +128,65 @@ func TestContextWithTimeout(t *testing.T) {
 	assert.Equal(t, true, d == deadline || d.After(deadline))
 }
 
+func TestContextWithCancel(t *testing.T) {
+	ctx := New(context.Background(), Bool("bool", true))
+	ctx, cancel := ctx.WithCancel()
+	defer cancel()
+	_, ok := ctx.Deadline()
+	assert.Equal(t, false, ok)
+	assert.Nil(t, ctx.Err())
+	cancel()
+	assert.Equal(t, context.Canceled, ctx.Err())
+}
+
+func TestContextWithValue(t *testing.T) {
+	ctx := New(context.Background(), Bool("bool", true))
+	ctx = ctx.WithValue("some-value", 42)
+	assert.Equal(t, 42, ctx.Value("some-value"))
+}
+
+func TestContextEncodeDecode(t *testing.T) {
+	fields := []Field{Bool("bool", true)}
+	ctx := New(context.Background(), fields...)
+	assert.Equal(t, fields, Fields(ctx.Encode()))
+}
+
+func TestFieldsWithForeignContext(t *testing.T) {
+	assert.Nil(t, Fields(context.Background()))
+}
+
+func TestDecodePointer(t *testing.T) {
+	fields := []Field{Bool("bool", true)}
+	ctx := New(context.Background(), fields...)
+	assert.Equal(t, fields, Fields(&ctx))
+}
+
+func TestDecodeValue(t *testing.T) {
+	fields := []Field{Bool("bool", true)}
+	ctx := New(context.Background(), fields...)
+	assert.Equal(t, fields, Fields(ctx))
+}
+
+func TestDecodeWrappedContext(t *testing.T) {
+	type testKey string
+	fields := []Field{Bool("bool", true)}
+	base := context.WithValue(context.Background(), testKey("some-key-1"), 21)
+	ctx := New(base, fields...)
+	ctx, ok := Decode(context.WithValue(ctx, testKey("some-key-2"), 42))
+	assert.Equal(t, true, ok)
+	assert.Equal(t, fields, ctx.Fields())
+	assert.Equal(t, 21, ctx.Value(testKey("some-key-1")))
+	assert.Equal(t, 42, ctx.Value(testKey("some-key-2")))
+}
+
+func TestDecodeOptional(t *testing.T) {
+	type testKey string
+	base := context.WithValue(context.Background(), testKey("some-key"), 42)
+	ctx := DecodeOptional(base)
+	assert.Nil(t, ctx.Fields())
+	assert.Equal(t, 42, ctx.Value(testKey("some-key")))
+}
+
 func BenchmarkContextCreation(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
