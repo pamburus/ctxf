@@ -133,7 +133,7 @@ func Fields(ctx context.Context) []Field {
 }
 
 // Decode retreives fields associated with the ctx and returns Context
-// with that fields and a flag which indicates where the ctx was constructed with New.
+// with that fields and a flag which indicates whether the ctx was constructed with New.
 func Decode(ctx context.Context) (Context, bool) {
 	switch c := ctx.(type) {
 	case *Context:
