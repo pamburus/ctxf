@@ -311,6 +311,15 @@ func ConstDurations(k string, v []time.Duration) Field {
 	return Field{Key: k, Value: valf.ConstDurations(v)}
 }
 
+// ConstStrings returns a new Field with the given key and slice of time.Duration.
+//
+// Call ConstStrings if your array is const. It has significantly less impact
+// on the calling goroutine.
+//
+func ConstStrings(k string, v []string) Field {
+	return Field{Key: k, Value: valf.ConstStrings(v)}
+}
+
 // NamedError returns a new Field with the given key and error.
 func NamedError(k string, v error) Field {
 	return Field{Key: k, Value: valf.Error(v)}
