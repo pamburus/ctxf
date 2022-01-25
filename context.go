@@ -150,9 +150,9 @@ func Decode(ctx context.Context) (Context, bool) {
 	}
 }
 
-// DecodeOptional retreives fields associated with the ctx and returns Context
+// DecodeOrNew retreives fields associated with the ctx and returns Context
 // with that fields.
-func DecodeOptional(ctx context.Context) Context {
+func DecodeOrNew(ctx context.Context) Context {
 	c, _ := Decode(ctx)
 
 	return c

@@ -142,16 +142,8 @@ func TestField(t *testing.T) {
 		{
 			Name: "Error",
 			Type: valf.TypeError,
-			Key:  "error",
 			Make: func() Field {
-				return Error(context.Canceled)
-			},
-		},
-		{
-			Name: "NamedError",
-			Type: valf.TypeError,
-			Make: func() Field {
-				return NamedError("NamedError", context.Canceled)
+				return Error("Error", context.Canceled)
 			},
 		},
 		{
@@ -435,31 +427,31 @@ func TestField(t *testing.T) {
 			},
 		},
 		{
-			Name: "Formatter",
-			Type: valf.TypeFormatter,
+			Name: "Formattable",
+			Type: valf.TypeFormattable,
 			Make: func() Field {
-				return Formatter("Formatter", "%v", nil)
+				return Formattable("Formattable", "%v", nil)
 			},
 		},
 		{
-			Name: "ConstFormatter",
-			Type: valf.TypeFormatter,
+			Name: "ConstFormattable",
+			Type: valf.TypeFormattable,
 			Make: func() Field {
-				return ConstFormatter("ConstFormatter", "%v", nil)
+				return ConstFormattable("ConstFormattable", "%v", nil)
 			},
 		},
 		{
-			Name: "FormatterRepr",
-			Type: valf.TypeFormatter,
+			Name: "FormattableRepr",
+			Type: valf.TypeFormattable,
 			Make: func() Field {
-				return FormatterRepr("FormatterRepr", nil)
+				return FormattableRepr("FormattableRepr", nil)
 			},
 		},
 		{
-			Name: "ConstFormatterRepr",
-			Type: valf.TypeFormatter,
+			Name: "ConstFormattableRepr",
+			Type: valf.TypeFormattable,
 			Make: func() Field {
-				return ConstFormatterRepr("ConstFormatterRepr", nil)
+				return ConstFormattableRepr("ConstFormattableRepr", nil)
 			},
 		},
 	}

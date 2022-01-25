@@ -320,14 +320,9 @@ func ConstStrings(k string, v []string) Field {
 	return Field{Key: k, Value: valf.ConstStrings(v)}
 }
 
-// NamedError returns a new Field with the given key and error.
-func NamedError(k string, v error) Field {
+// Error returns a new Field with the given key and error.
+func Error(k string, v error) Field {
 	return Field{Key: k, Value: valf.Error(v)}
-}
-
-// Error returns a new Field with the given error and key "error".
-func Error(v error) Field {
-	return NamedError("error", v)
 }
 
 // Time returns a new Field with the given key and time.Time.
@@ -367,37 +362,37 @@ func Stringer(k string, v fmt.Stringer) Field {
 	return Field{Key: k, Value: valf.Stringer(v)}
 }
 
-// ConstFormatter returns a new Field with the given key and verb and interface
+// ConstFormattable returns a new Field with the given key and verb and interface
 // to format.
 //
-// Call ConstFormatter if your object is const. It has significantly less
+// Call ConstFormattable if your object is const. It has significantly less
 // impact on the calling goroutine.
 //
-func ConstFormatter(k string, verb string, v interface{}) Field {
-	return Field{Key: k, Value: valf.ConstFormatter(verb, v)}
+func ConstFormattable(k string, format string, v interface{}) Field {
+	return Field{Key: k, Value: valf.ConstFormattable(format, v)}
 }
 
-// ConstFormatterRepr returns a new Field with the given key and interface to
+// ConstFormattableRepr returns a new Field with the given key and interface to
 // format. It uses the predefined verb "%#v" (a Go-syntax representation of
 // the value).
 //
 // Call ConstFormatterRepr if your object is const. It has significantly less
 // impact on the calling goroutine.
 //
-func ConstFormatterRepr(k string, v interface{}) Field {
-	return Field{Key: k, Value: valf.ConstFormatterRepr(v)}
+func ConstFormattableRepr(k string, v interface{}) Field {
+	return Field{Key: k, Value: valf.ConstFormattableRepr(v)}
 }
 
-// Formatter returns a new Field with the given key and verb and interface to
+// Formattable returns a new Field with the given key and verb and interface to
 // format.
-func Formatter(k string, verb string, v interface{}) Field {
-	return Field{Key: k, Value: valf.Formatter(verb, v)}
+func Formattable(k string, format string, v interface{}) Field {
+	return Field{Key: k, Value: valf.Formattable(format, v)}
 }
 
-// FormatterRepr returns a new Field with the given key and interface to format.
+// FormattableRepr returns a new Field with the given key and interface to format.
 // It uses the predefined verb "%#v" (a Go-syntax representation of the value).
-func FormatterRepr(k string, v interface{}) Field {
-	return Field{Key: k, Value: valf.FormatterRepr(v)}
+func FormattableRepr(k string, v interface{}) Field {
+	return Field{Key: k, Value: valf.FormattableRepr(v)}
 }
 
 // Any returns a new Field with the given key and value of any type. It tries

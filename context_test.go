@@ -179,10 +179,10 @@ func TestDecodeWrappedContext(t *testing.T) {
 	assert.Equal(t, 42, ctx.Value(testKey("some-key-2")))
 }
 
-func TestDecodeOptional(t *testing.T) {
+func TestDecodeOrNew(t *testing.T) {
 	type testKey string
 	base := context.WithValue(context.Background(), testKey("some-key"), 42)
-	ctx := DecodeOptional(base)
+	ctx := DecodeOrNew(base)
 	assert.Nil(t, ctx.Fields())
 	assert.Equal(t, 42, ctx.Value(testKey("some-key")))
 }
